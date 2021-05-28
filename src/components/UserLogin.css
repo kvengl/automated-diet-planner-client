@@ -1,0 +1,28 @@
+.login-form__btn-register {
+    margin-left: 16px;
+}
+
+.login-form__logo {
+    padding: 24px 0;
+}
+
+.login-form__content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 24px;
+}
+
+.login-form__input {
+    width: 300px;
+}
+
+.login-form__btns {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.login-form__content .ant-form-item {
+    margin-bottom: 16px;
+}

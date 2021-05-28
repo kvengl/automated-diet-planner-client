@@ -1,0 +1,28 @@
+.register-form__btn-register {
+    margin-left: 16px;
+}
+
+.register-form__logo {
+    padding: 24px 0;
+}
+
+.register-form__content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 24px;
+}
+
+.register-form__input {
+    width: 300px;
+}
+
+.register-form__btns {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.register-form__content .ant-form-item {
+    margin-bottom: 16px;
+}

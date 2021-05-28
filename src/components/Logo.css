@@ -1,0 +1,17 @@
+.logo {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.logo__image {
+    width: 150px;
+}
+
+.logo__name {
+    font-family: Lobster;
+    font-size: 48px;
+    color: #ff6666;
+    margin: 0;
+    margin-left: 20px;
+}
