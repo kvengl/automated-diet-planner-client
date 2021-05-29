@@ -7,7 +7,7 @@ import { message } from 'antd'
 export function setUser(user) {
   console.log('[USER] объект пользователя установлен')
 
-  const role = user.auth.role.value
+  const role = user.auth.role
 
   return {
     type: types.USER_LOGIN,
@@ -50,6 +50,7 @@ export function userLogin(username, password) {
     message.error('Заполните все поля', 3)
     else
       UserService.userLogin(username, password).then(session => {
+        session = session.data
         if (session.error) {
           message.error(session.error, 3)
           return
@@ -108,9 +109,9 @@ export function createUser(data) {
     UserService.createUser(data).then(response => {
       if (response.data.ok) {
         history.push(`${window.URL_PREFIX}login`)
-        message.info('Вы успешно завершили регистрацию', 3)
+        message.success('Вы успешно завершили регистрацию', 3)
       }
-      else message.error('Во время регистрации произошла ошибка', 3)
+      else message.error(response.data.error, 3)
     })
   }
 }

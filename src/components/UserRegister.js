@@ -3,16 +3,14 @@ import { Form, Input, Button, DatePicker, message } from 'antd'
 import Logo from './Logo'
 import './UserRegister.css'
 import { Link } from 'react-router-dom'
+import 'moment/locale/ru'
+import locale from 'antd/es/date-picker/locale/ru_RU'
 
 function UserRegister({ createUser }) {
     document.title = 'Регистрация | Diet planner'
 
     const onFinish = values => {
-        const username = values.username
-        const password = values.password
-        const password_confirm = values.password_confirm
-        const email = values.email
-        const birthday = values.birthday
+        const { username, password, password_confirm, email, birthday } = values
 
         new Promise((resolve) => {
             if (username && password && password_confirm && email && birthday) resolve()
@@ -99,7 +97,7 @@ function UserRegister({ createUser }) {
                             },
                         ]}
                     >
-                        <DatePicker className='register-form__input' placeholder='' picker='month' />
+                        <DatePicker locale={locale} format="MM.YYYY" className='register-form__input' placeholder='' picker='month' />
                     </Form.Item>
 
                     <Form.Item
