@@ -32,6 +32,7 @@ export function checkSession(uid) {
 }
 export function clearStore() {
   return (dispatch) => {
+    UserService.logout()
     dispatch(clearUser())
   }
 }

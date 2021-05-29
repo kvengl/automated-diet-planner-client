@@ -10,12 +10,25 @@
     height: 100vh;
 }
 
-.App {
+.App__content {
     display: flex;
 }
 
-.content {
+.App__content-component {
     width: 100%;
     height: 100vh;
     padding: 12px;
+    overflow-y: auto;
+}
+
+.App {
+    font-family: Open Sans;
+}
+
+.App__content-logo {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    padding: 16px;
+    zoom: 0.5;
 }

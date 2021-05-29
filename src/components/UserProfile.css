@@ -1,0 +1,22 @@
+.profile-form__content {
+    display: flex;
+    flex-direction: column;
+    align-items: left;
+    margin-bottom: 24px;
+    margin-left: 12px;
+}
+
+.profile-form__input {
+    width: 300px;
+}
+
+.profile-form__content .ant-form-item {
+    margin-bottom: 16px;
+}
+
+.profile-form__title {
+    font-family: Cuprum;
+    font-size: 36px;
+    color: green;
+    margin: 0;
+}

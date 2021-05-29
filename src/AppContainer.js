@@ -1,9 +1,9 @@
 import { connect } from 'react-redux'
 import App from './App'
-import { userRefresh } from './actions/user'
+import { userRefresh, clearStore } from './actions/user'
 
 const mapStateToProps = state => ({
   user: state.user
 })
 
-export default connect(mapStateToProps, { userRefresh })(App)
+export default connect(mapStateToProps, { userRefresh, clearStore })(App)

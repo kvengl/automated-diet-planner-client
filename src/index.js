@@ -16,12 +16,10 @@ const middleware = [thunk, createLogger()]
 const store = createStore(reducer, applyMiddleware(...middleware))
 
 ReactDOM.render(
-  <React.StrictMode>
     <Provider store={store}>
       <Router history={history}>
         <App history={history}/>
       </Router>
-    </Provider>
-  </React.StrictMode>,
+    </Provider>,
   document.getElementById('root')
 )

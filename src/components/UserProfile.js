@@ -1,42 +1,37 @@
 import { Form, Input, Button, DatePicker, message } from 'antd'
-import Logo from './Logo'
-import './UserRegister.css'
-import { Link } from 'react-router-dom'
+import './UserProfile.css'
 import 'moment/locale/ru'
 import locale from 'antd/es/date-picker/locale/ru_RU'
+import moment from 'moment'
 
-function UserRegister({ createUser }) {
-    document.title = 'Регистрация | Diet planner'
+function UserProfile({ user, updateUser }) {
+    document.title = 'Профиль | Diet planner'
 
     const onFinish = values => {
         const { username, password, password_confirm, email, birthday } = values
 
         new Promise((resolve) => {
-            if (username && password && password_confirm && email && birthday) resolve()
-            else throw new Error('Необходимо заполнить все обязательные поля')
-          }).then(() => {
-            if (/^([a-z0-9_-]+\.)*[a-z0-9_-]+@[a-z0-9_-]+(\.[a-z0-9_-]+)*\.[a-z]{2,6}$/.test(email)) return true
+            if (/^([a-z0-9_-]+\.)*[a-z0-9_-]+@[a-z0-9_-]+(\.[a-z0-9_-]+)*\.[a-z]{2,6}$/.test(email)) return resolve()
             else throw new Error('Неверный формат электронной почты')
           }).then(() => {
             if (username.length >= 3 && username.length <= 16) return true
             else throw new Error('Никнейм должен содержать от 3 до 16 символов')
           }).then(() => {
-            if (password === password_confirm) return true
-            else throw new Error('Пароли не совпадают')
-          }).then(() => {
-            if (password.length >= 6) return true
+            if ((!password && !password_confirm) || password === password_confirm) return true
+            else throw new Error("Пароли не совпадают")
+        }).then(() => {
+            if ((!password && !password_confirm) ||  password.length >= 6) return true
             else throw new Error('Пароль должен содержать минимум 6 символов')
           }).then(() => {
-            let data = {
-              username,
-              email,
-              password,
-              birthday
+            const new_user = JSON.parse(JSON.stringify(user.data))
+            if (password) {
+                new_user.auth.password = password
             }
-            createUser(data)
+            new_user.auth.username = username
+            new_user.auth.email = email
+            new_user.birthday = birthday
+            updateUser(new_user)
           }).catch(error => message.error(error.message, 3))
-
-        console.log('Success:', values)
     }
 
     const onFinishFailed = errorInfo => {
@@ -44,11 +39,9 @@ function UserRegister({ createUser }) {
     }
 
     return (
-        <section className='register-form'>
-            <div className='register-form__logo'>
-                <Logo />
-            </div>
-            <div className='register-form__content'>
+        <section className='profile-form'>
+            <div className='profile-form__content'>
+                <p className='profile-form__title'>Редактирование профиля</p>
                 <Form
                     layout='vertical'
                     name='basic'
@@ -59,9 +52,10 @@ function UserRegister({ createUser }) {
                     onFinishFailed={onFinishFailed}
                 >
                     <Form.Item
-                        className='register-form__input'
+                        className='profile-form__input'
                         label='Логин'
                         name='username'
+                        initialValue={user.data.auth.username}
                         rules={[
                             {
                                 required: true,
@@ -73,9 +67,10 @@ function UserRegister({ createUser }) {
                     </Form.Item>
 
                     <Form.Item
-                        className='register-form__input'
+                        className='profile-form__input'
                         label='E-mail'
                         name='email'
+                        initialValue={user.data.auth.email}
                         rules={[
                             {
                                 required: true,
@@ -89,6 +84,7 @@ function UserRegister({ createUser }) {
                     <Form.Item
                         label='Год и месяц рождения'
                         name='birthday'
+                        initialValue={moment(user.data.auth.birthday)}
                         rules={[
                             {
                                 required: true,
@@ -96,48 +92,33 @@ function UserRegister({ createUser }) {
                             },
                         ]}
                     >
-                        <DatePicker locale={locale} format="MM.YYYY" className='register-form__input' placeholder='' picker='month' />
+                        <DatePicker locale={locale} format="MM.YYYY" className='profile-form__input' placeholder='' picker='month' />
                     </Form.Item>
 
                     <Form.Item
-                        className='register-form__input'
+                        className='profile-form__input'
                         label='Пароль'
+                        initialValue=''
                         name='password'
-                        rules={[
-                            {
-                                required: true,
-                                message: 'Введите пароль',
-                            },
-                        ]}
                     >
                         <Input.Password />
                     </Form.Item>
 
                     <Form.Item
-                        className='register-form__input'
+                        className='profile-form__input'
                         label='Подтвердите пароль'
+                        initialValue=''
                         name='password_confirm'
-                        rules={[
-                            {
-                                required: true,
-                                message: 'Введите пароль',
-                            },
-                        ]}
                     >
                         <Input.Password />
                     </Form.Item>
-
-                    <div className='register-form__btns'>
                         <Button type='primary' htmlType='submit'>
-                            Зарегистрироваться
+                            Изменить данные
                         </Button>
-
-                        <Link to={`${window.URL_PREFIX}login`}>Авторизация</Link>
-                    </div>
                 </Form>
             </div>
         </section>
     )
 }
 
-export default UserRegister
+export default UserProfile
