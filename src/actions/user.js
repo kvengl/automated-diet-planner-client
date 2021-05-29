@@ -6,7 +6,7 @@ import { message } from 'antd'
 
 export function setUser(user) {
   console.log('[USER] объект пользователя установлен')
-
+  history.push(window.URL_PREFIX)
   const role = user.auth.role
 
   return {
