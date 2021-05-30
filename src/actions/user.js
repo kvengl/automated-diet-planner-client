@@ -99,7 +99,7 @@ export function updateUser(data) {
     UserService.updateUser(data).then(response => {
       if (response.data.ok)
         message.info('Данные обновлены', 3)
-      else message.error('Ошибка при обновлении данных. Попробуйте позже', 3)
+      else message.error(response.data.error, 3)
       dispatch(setUser(data))
     })
   }

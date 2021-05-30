@@ -6,10 +6,8 @@ import moment from 'moment'
 
 function UserProfile({ user, updateUser }) {
     document.title = 'Профиль | Diet planner'
-
     const onFinish = values => {
         const { username, password, password_confirm, email, birthday } = values
-
         new Promise((resolve) => {
             if (/^([a-z0-9_-]+\.)*[a-z0-9_-]+@[a-z0-9_-]+(\.[a-z0-9_-]+)*\.[a-z]{2,6}$/.test(email)) return resolve()
             else throw new Error('Неверный формат электронной почты')

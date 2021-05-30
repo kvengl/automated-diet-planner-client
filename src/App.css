@@ -22,7 +22,8 @@
 }
 
 .App {
-    font-family: Open Sans;
+    font-family: Arial;
+    color: #000;
 }
 
 .App__content-logo {

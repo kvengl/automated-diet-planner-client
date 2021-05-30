@@ -13,21 +13,8 @@ strong {
 }
 
 .main__anthropometry {
-    display: flex;
-    justify-content: center;
-    flex-direction: column;
     padding: 12px;
-    border: 1px solid #cecece;
-    border-radius: 8px;
-    width: 410px;
-    align-items: center;
-    background-color: #fcfcfc;
-}
-
-.main__anthropometry-title {
-    text-align: center;
-    font-size: 18px;
-    font-weight: bold;
+    width: 100%;
 }
 
 .main__anthropometry-btn {
@@ -36,9 +23,48 @@ strong {
 }
 
 .main__anthropometry-input {
-    width: 300px;
+    width: 100%;
 }
 
 .main__anthropometry-input .ant-input-number {
-    width: 300px;
+    width: 100%;
+}
+
+.main__forms {
+    display: flex;
+}
+
+.main__forms .ant-collapse-content-box {
+    background-color: #fefefe;
+}
+
+.main__setting-forms {
+    width: 30%;
+    margin-right: 16px;
+}
+
+.main__user-recommendations {
+    width: 50%;
+}
+
+@media (max-width: 1200px) {
+    .main__setting-forms {
+        width: 50%;
+    }
+    .main__user-recommendations {
+        width: 50%;
+    }
+}
+
+@media (max-width: 750px) {
+    .main__forms {
+        flex-direction: column;
+    }
+    .main__setting-forms {
+        width: 100%;
+        margin-right: 0px;
+    }
+    .main__user-recommendations {
+        width: 100%;
+    }
 }
