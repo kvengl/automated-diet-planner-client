@@ -6,7 +6,7 @@ import { Link } from 'react-router-dom'
 
 function UserLogin({ userLogin }) {
     document.title = 'Авторизация | Diet planner'
-    
+
     const onFinish = values => {
         userLogin(values.username, values.password)
     }

@@ -1,18 +1,30 @@
-import React, { useEffect, useState } from "react"
+import React, { useEffect, useState } from 'react'
 import { Skeleton } from 'antd'
-import Home from "../containers/Home"
+import Home from '../containers/Home'
 
-function LoadDataFromDBGate({ nutrient_norms, getNutrientNorms }) {
+function LoadDataFromDBGate({ user, nutrient_norms, products, product_categories, getNutrientNorms, getProducts, getProductCategories }) {
     const [loaded, setLoaded] = useState(false)
+    const [loadStatus, setLoadStatus] = useState('Загрузка...')
     useEffect(() => {
         if (nutrient_norms.length === 0) {
-            console.group("Получение данных из справочников...")
+            console.group('Получение данных из справочников...')
             getNutrientNorms()
+            setLoadStatus('Получение норм нутриентов...')
         } else {
-            setLoaded(true)
-            console.groupEnd("DICTIONARY")
+            if (products.length === 0) {
+                getProducts()
+                setLoadStatus('Получение списка продуктов...')
+            } else {
+                if (product_categories.length === 0) {
+                    getProductCategories()
+                    setLoadStatus('Получение списка категорий продуктов...')
+                } else {
+                    setLoaded(true)
+                    console.groupEnd('DICTIONARY')
+                }
+            }
         }
-    }, [getNutrientNorms, nutrient_norms.length])
+    }, [user, getNutrientNorms, getProducts, getProductCategories, nutrient_norms.length, products.length, product_categories.length, loaded])
 
     if (loaded) {
         return (
@@ -20,7 +32,10 @@ function LoadDataFromDBGate({ nutrient_norms, getNutrientNorms }) {
         )
     } else {
         return (
-            <Skeleton />
+            <>
+                <Skeleton />
+                {loadStatus}
+            </>
         )
     }
 }

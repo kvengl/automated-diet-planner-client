@@ -12,21 +12,22 @@ strong {
     color: green;
 }
 
-.main__anthropometry {
+.main__anthropometry, .main_diet-settings {
     padding: 12px;
     width: 100%;
 }
 
-.main__anthropometry-btn {
+.main__anthropometry-btn, .main__diet-settings-btn {
+    margin-top: 12px;
     display: flex;
     justify-content: center;
 }
 
-.main__anthropometry-input {
+.main__anthropometry-input, .main__diet-settings-input {
     width: 100%;
 }
 
-.main__anthropometry-input .ant-input-number {
+.main__anthropometry-input .ant-input-number, .main__diet-settings-input .ant-input-number {
     width: 100%;
 }
 
@@ -61,6 +62,8 @@ strong {
 }
 
 .main__sources {
+    align-items: center;
+    font-family: Open Sans;
     border: 1px solid #cecece;
     padding: 12px;
     margin-top: 8px;

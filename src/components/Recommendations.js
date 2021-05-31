@@ -57,13 +57,11 @@ function Recommendations({ user, nutrient_norms }) {
     return (
         <div>
             <p className='main__user-recommendations-title'>Рекомендации по нутриентам:</p>
-            {user.data.anthropometry === null ? 
-                <p className='main__user-recommendations-error'>Вам недоступна таблица с рекомендованными суточными нормами питательных компонентов в рационе. <br/>
+            {user.data.anthropometry === null ?
+                <p className='main__user-recommendations-error'>Вам недоступна таблица с рекомендованными суточными нормами питательных компонентов в рационе. <br />
                 Заполните форму <strong>"Антропометрия"</strong></p>
                 :
-                <p>
-                    <Table pagination={{ position: ['topRight'] }} dataSource={data} columns={columns} />
-                </p>
+                <Table pagination={{ position: ['topRight'] }} dataSource={data} columns={columns} />
             }
         </div>
     )

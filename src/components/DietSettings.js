@@ -1,36 +1,24 @@
-import React, {useState} from 'react'
-import ReactHtmlParser from 'react-html-parser'
-import { Form, Button, Select, Slider, message } from 'antd'
+import { useState } from 'react'
+import { Form, Button, Select, message, InputNumber } from 'antd'
 const { Option } = Select
 
-function DietSettings({ user, updateUser }) {
-    const [height, setHeight] = useState(user.data.anthropometry ? user.data.anthropometry.height :  180)
-    const [weight, setWeight] = useState(user.data.anthropometry ? user.data.anthropometry.weight :  80)
-    const [neck_girth, setNeck_girth] = useState(user.data.anthropometry ? user.data.anthropometry.neck_girth : 40)
-    const [waist_girth, setWaist_girth] = useState(user.data.anthropometry ? user.data.anthropometry.waist_girth : 60)
-    const [forearm_girth, setForearm_girth] = useState(user.data.anthropometry ? user.data.anthropometry.forearm_girth : 23)
-    const [wrist_girth, setWrist_girth] = useState(user.data.anthropometry ? user.data.anthropometry.wrist_girth : 17)
-    const [hip_girth, setHip_girth] = useState(user.data.anthropometry ? user.data.anthropometry.hip_girth : 90)
+function DietSettings({ user, products, product_categories, updateUser }) {
+    const number_meals = user.data.diet_settings ? user.data.diet_settings.number_meals : 3
+    const financial_opportunities = user.data.diet_settings ? user.data.diet_settings.financial_opportunities : 800
+    const [product_categories_excluded, set_product_categories_excluded] = useState(user.data.diet_settings ? user.data.diet_settings.product_categories_excluded : [])
+    const [food_excluded, set_food_excluded] = useState(user.data.diet_settings ? user.data.diet_settings.food_excluded : [])
 
     const onFinish = values => {
-        const { sex, activity } = values
         const new_user = JSON.parse(JSON.stringify(user.data))
-        new_user.anthropometry = { sex, height, weight, neck_girth, waist_girth, forearm_girth, wrist_girth, hip_girth, activity }
+        new_user.diet_settings = { financial_opportunities: values.financial_opportunities, number_meals: values.number_meals, food_excluded, product_categories_excluded: values.product_categories_excluded }
         updateUser(new_user)
     }
     const onFinishFailed = () => {
         message.error('Выберите пол', 3)
     }
-    
-    const markStyle = {
-        marginTop: '-34px',
-        fontSize: '12px',
-        color: 'black',
-        fontWeight: 'bold'
-    }
 
     return (
-        <div className='main__anthropometry'>
+        <div className='main__diet-settings'>
             <Form
                 layout='vertical'
                 name='basic'
@@ -40,184 +28,64 @@ function DietSettings({ user, updateUser }) {
                 onFinish={onFinish}
                 onFinishFailed={onFinishFailed}
             >
+
                 <Form.Item
-                    className='main__anthropometry-input'
-                    label='Пол'
-                    name='sex'
+                    className='main__diet-settings-input'
+                    label='Количество приёмов пищи'
+                    name='number_meals'
+                    initialValue={number_meals}
                     rules={[
                         {
                             required: true,
-                        },
+                            message: ''
+                        }
                     ]}
-                    initialValue={user.data.anthropometry ? user.data.anthropometry.sex :  null}
                 >
-                    <Select>
-                        <Option value='male'>Мужской</Option>
-                        <Option value='female'>Женский</Option>
-                    </Select>
+                    <InputNumber min={1} max={7} />
                 </Form.Item>
 
                 <Form.Item
-                    className='main__anthropometry-input'
-                    label='Степень физической активности'
-                    name='activity'
+                    className='main__diet-settings-input'
+                    label='Финансовые возможности (₽)'
+                    name='financial_opportunities'
+                    initialValue={financial_opportunities}
                     rules={[
                         {
                             required: true,
-                        },
+                            message: ''
+                        }
                     ]}
-                    tooltip={{title: ReactHtmlParser(`
-                        <strong>Минимальная активность:</strong> сидячая работа, не требующая значительных физических нагрузок<br/>
-                        <strong>Слабый уровень активности:</strong> интенсивные упражнения не менее 20 минут один-три раза в неделю. Это может быть езда на велосипеде, бег трусцой, баскетбол, плавание, катание на коньках и т.д.<br/>
-                        <strong>Умеренный уровень активности:</strong> интенсивная тренировка не менее 30-60 мин три-четыре раза в неделю<br/>
-                        <strong>Тяжёлая или трудоёмкая активность:</strong> интенсивные упражнения и занятия спортом 5-7 дней в неделю. Трудоемкие занятия также подходят для этого уровня, они включают строительные работы (кирпичная кладка, столярное дело и т. д.), занятость в сельском хозяйстве и т.п.<br/>
-                        <strong>Экстремальный уровень:</strong> включает чрезвычайно активные и/или очень энергозатратные виды деятельности: занятия спортом с почти ежедневным графиком и несколькими тренировками в течение дня; очень трудоемкая работа, например, сгребание угля или длительный рабочий день на сборочной линии. Зачастую этого уровня активности очень трудно достичь<br/>
-                    `)}}
-                    initialValue={user.data.anthropometry ? user.data.anthropometry.activity :  null}
                 >
-                    <Select>
-                        <Option value='min'>Минимальная активность</Option>
-                        <Option value='weak'>Слабый уровень активности</Option>
-                        <Option value='moderate'>Умеренный уровень активности</Option>
-                        <Option value='heavy'>Тяжёлая или трудоёмкая активность</Option>
-                        <Option value='hard'>Экстремальный уровень</Option>
+                    <InputNumber min={100} max={5000} />
+                </Form.Item>
+
+                <Form.Item
+                    className='main__diet-settings-input'
+                    label='Исключить следующие категории продуктов'
+                    name='product_categories_excluded'
+                    initialValue={product_categories_excluded}
+                >
+                    <Select mode='multiple' onChange={value => { 
+                        set_product_categories_excluded(value)
+                        const copy_food_excluded = food_excluded.slice()
+                        food_excluded.forEach((val, i) => {
+                            const index = products.findIndex(el => val === el.name)
+                            console.log(index)
+                            if (index !== -1 && value.includes(products[index].category)) {
+                                copy_food_excluded.splice(i, 1)
+                            }
+                        })
+                        set_food_excluded(copy_food_excluded)
+                    }}>
+                        {product_categories.map(val => <Option key={val._id} value={val.name}>{val.name}</Option>)}
                     </Select>
                 </Form.Item>
+                Исключить конкретные продукты
+                <Select style={{width: '100%'}} mode='multiple' onChange={value => set_food_excluded(value)} value={food_excluded}>
+                    {products.filter(val => !product_categories_excluded.includes(val.category)).map(val => <Option key={val._id} value={val.name}>{val.name}</Option>)}
+                </Select>
 
-                <Form.Item
-                    className='main__anthropometry-input'
-                    label={`Рост`}
-                    name='height'
-                    initialValue={height}
-                >
-                    <Slider
-                        tooltipVisible={false}
-                        value={height}
-                        onChange={value => setHeight(value)}
-                        marks={{ [height]: {
-                            style: markStyle,
-                            label: height + ' см'
-                        } }}
-                        min={50}
-                        max={272}
-                    />
-                </Form.Item>
-
-                <Form.Item
-                    className='main__anthropometry-input'
-                    label='Масса тела'
-                    name='weight'
-                    initialValue={weight}
-                >
-                    <Slider
-                        tooltipVisible={false}
-                        value={height}
-                        onChange={value => setWeight(value)}
-                        marks={{ [weight]: {
-                            style: markStyle,
-                            label: weight + ' кг'
-                        } }}
-                        min={15}
-                        max={180}
-                    />
-                </Form.Item>
-
-                <Form.Item
-                    className='main__anthropometry-input'
-                    label='Обхват шеи'
-                    name='neck_girth'
-                    initialValue={neck_girth}
-                >
-                    <Slider
-                        tooltipVisible={false}
-                        value={neck_girth}
-                        onChange={value => setNeck_girth(value)}
-                        marks={{ [neck_girth]: {
-                            style: markStyle,
-                            label: neck_girth + ' см'
-                        } }}
-                        min={20}
-                        max={50}
-                    />
-                </Form.Item>
-
-                <Form.Item
-                    className='main__anthropometry-input'
-                    label='Обхват талии'
-                    name='waist_girth'
-                    initialValue={waist_girth}
-                >
-                    <Slider
-                        tooltipVisible={false}
-                        value={waist_girth}
-                        onChange={value => setWaist_girth(value)}
-                        marks={{ [waist_girth]: {
-                            style: markStyle,
-                            label: waist_girth + ' см'
-                        } }}
-                        min={30}
-                        max={150}
-                    />
-                </Form.Item>
-
-                <Form.Item
-                    className='main__anthropometry-input'
-                    label='Обхват предплечья'
-                    name='forearm_girth'
-                    initialValue={forearm_girth}
-                >
-                    <Slider
-                        tooltipVisible={false}
-                        value={forearm_girth}
-                        onChange={value => setForearm_girth(value)}
-                        marks={{ [forearm_girth]: {
-                            style: markStyle,
-                            label: forearm_girth + ' см'
-                        } }}
-                        min={15}
-                        max={35}
-                    />
-                </Form.Item>
-
-                <Form.Item
-                    className='main__anthropometry-input'
-                    label='Обхват запястья'
-                    name='wrist_girth'
-                    initialValue={wrist_girth}
-                >
-                    <Slider
-                        tooltipVisible={false}
-                        value={wrist_girth}
-                        onChange={value => setWrist_girth(value)}
-                        marks={{ [wrist_girth]: {
-                            style: markStyle,
-                            label: wrist_girth + ' см'
-                        } }}
-                        min={13}
-                        max={23}
-                    />
-                </Form.Item>
-
-                <Form.Item
-                    className='main__anthropometry-input'
-                    label='Обхват бёдер'
-                    name='hip_girth'
-                    initialValue={hip_girth}
-                >
-                    <Slider
-                        tooltipVisible={false}
-                        value={hip_girth}
-                        onChange={value => setHip_girth(value)}
-                        marks={{ [hip_girth]: {
-                            style: markStyle,
-                            label: hip_girth + ' см'
-                        } }}
-                        min={75}
-                        max={130}
-                    />
-                </Form.Item>
-
-                <div className='main__anthropometry-btn'>
+                <div className='main__diet-settings-btn'>
                     <Button type='primary' htmlType='submit'>
                         Сохранить
                     </Button>

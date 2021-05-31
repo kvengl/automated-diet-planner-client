@@ -2,13 +2,13 @@ import React, { useState } from 'react'
 import MainContainer from '../containers/MainContainer'
 import UserProfileContainer from '../containers/UserProfileContainer'
 import {
-  HomeOutlined,
-  UnorderedListOutlined,
-  UserOutlined,
-  EditOutlined,
-  InfoCircleOutlined,
-  MailOutlined,
-  ImportOutlined
+    HomeOutlined,
+    UnorderedListOutlined,
+    UserOutlined,
+    EditOutlined,
+    InfoCircleOutlined,
+    MailOutlined,
+    ImportOutlined
 } from '@ant-design/icons';
 
 import { Menu } from 'antd'
@@ -19,11 +19,11 @@ function Home({ user, clearStore }) {
     const [selectedMenuKey, setSelectedMenuKey] = useState('main')
     const changeMenuItem = ({ key }) => {
         if (key === 'exit') {
-          clearStore()
+            clearStore()
         } else {
-          setSelectedMenuKey(key)
+            setSelectedMenuKey(key)
         }
-      }
+    }
     return (
         <div className="Home">
             <Menu
@@ -49,8 +49,8 @@ function Home({ user, clearStore }) {
                     Сгенерировать меню
           </Menu.Item>
                 <Menu.Item key="report" icon={<MailOutlined />}>
-                {(user.role === 'admin' || user.role === 'moderator') ? 'Обращения' : 'Обратная связь' }
-            </Menu.Item>
+                    {(user.role === 'admin' || user.role === 'moderator') ? 'Обращения' : 'Обратная связь'}
+                </Menu.Item>
                 <Menu.Item key="tutorial" icon={<InfoCircleOutlined />}>
                     Руководство пользователя
           </Menu.Item>
@@ -58,12 +58,10 @@ function Home({ user, clearStore }) {
                     Выйти
           </Menu.Item>
             </Menu>
-                <section className='Home-component'>
-                    {selectedMenuKey === 'main' && <MainContainer />}
-                    {selectedMenuKey === 'account' && <UserProfileContainer />}
-                </section>
-                
-                
+            <section className='Home-component'>
+                {selectedMenuKey === 'main' && <MainContainer />}
+                {selectedMenuKey === 'account' && <UserProfileContainer />}
+            </section>
         </div>
     )
 }

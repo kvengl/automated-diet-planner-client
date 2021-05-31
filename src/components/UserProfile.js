@@ -11,16 +11,16 @@ function UserProfile({ user, updateUser }) {
         new Promise((resolve) => {
             if (/^([a-z0-9_-]+\.)*[a-z0-9_-]+@[a-z0-9_-]+(\.[a-z0-9_-]+)*\.[a-z]{2,6}$/.test(email)) return resolve()
             else throw new Error('Неверный формат электронной почты')
-          }).then(() => {
+        }).then(() => {
             if (username.length >= 3 && username.length <= 16) return true
             else throw new Error('Никнейм должен содержать от 3 до 16 символов')
-          }).then(() => {
+        }).then(() => {
             if ((!password && !password_confirm) || password === password_confirm) return true
             else throw new Error("Пароли не совпадают")
         }).then(() => {
-            if ((!password && !password_confirm) ||  password.length >= 6) return true
+            if ((!password && !password_confirm) || password.length >= 6) return true
             else throw new Error('Пароль должен содержать минимум 6 символов')
-          }).then(() => {
+        }).then(() => {
             const new_user = JSON.parse(JSON.stringify(user.data))
             if (password) {
                 new_user.auth.password = password
@@ -29,7 +29,7 @@ function UserProfile({ user, updateUser }) {
             new_user.auth.email = email
             new_user.birthday = birthday
             updateUser(new_user)
-          }).catch(error => message.error(error.message, 3))
+        }).catch(error => message.error(error.message, 3))
     }
 
     const onFinishFailed = errorInfo => {
@@ -110,8 +110,8 @@ function UserProfile({ user, updateUser }) {
                     >
                         <Input.Password />
                     </Form.Item>
-                        <Button type='primary' htmlType='submit'>
-                            Изменить данные
+                    <Button type='primary' htmlType='submit'>
+                        Изменить данные
                         </Button>
                 </Form>
             </div>
