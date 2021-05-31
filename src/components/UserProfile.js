@@ -1,5 +1,5 @@
 import { Form, Input, Button, DatePicker, message } from 'antd'
-import './UserProfile.css'
+import './css/UserProfile.css'
 import 'moment/locale/ru'
 import locale from 'antd/es/date-picker/locale/ru_RU'
 import moment from 'moment'

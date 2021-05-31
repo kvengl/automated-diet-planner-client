@@ -39,12 +39,19 @@ strong {
 }
 
 .main__setting-forms {
-    width: 30%;
-    margin-right: 16px;
+    width: 40%;
+    margin-right: 24px;
 }
 
 .main__user-recommendations {
-    width: 50%;
+    width: 60%;
+}
+
+.main__user-recommendations-title {
+    font-family: Cuprum;
+    font-size: 36px;
+    color: crimson;
+    margin: 0;
 }
 
 @media (max-width: 1200px) {

@@ -1,47 +1,41 @@
 import { Form, Input, Button, DatePicker, message } from 'antd'
 import Logo from './Logo'
-import './UserRegister.css'
+import './css/UserRegister.css'
 import { Link } from 'react-router-dom'
 import 'moment/locale/ru'
 import locale from 'antd/es/date-picker/locale/ru_RU'
 
 function UserRegister({ createUser }) {
     document.title = 'Регистрация | Diet planner'
-
     const onFinish = values => {
         const { username, password, password_confirm, email, birthday } = values
-
         new Promise((resolve) => {
             if (username && password && password_confirm && email && birthday) resolve()
             else throw new Error('Необходимо заполнить все обязательные поля')
-          }).then(() => {
+        }).then(() => {
             if (/^([a-z0-9_-]+\.)*[a-z0-9_-]+@[a-z0-9_-]+(\.[a-z0-9_-]+)*\.[a-z]{2,6}$/.test(email)) return true
             else throw new Error('Неверный формат электронной почты')
-          }).then(() => {
+        }).then(() => {
             if (username.length >= 3 && username.length <= 16) return true
             else throw new Error('Никнейм должен содержать от 3 до 16 символов')
-          }).then(() => {
+        }).then(() => {
             if (password === password_confirm) return true
             else throw new Error('Пароли не совпадают')
-          }).then(() => {
+        }).then(() => {
             if (password.length >= 6) return true
             else throw new Error('Пароль должен содержать минимум 6 символов')
-          }).then(() => {
+        }).then(() => {
             let data = {
-              username,
-              email,
-              password,
-              birthday
+                username,
+                email,
+                password,
+                birthday
             }
             createUser(data)
-          }).catch(error => message.error(error.message, 3))
-
-        console.log('Success:', values)
+        }).catch(error => message.error(error.message, 3))
     }
 
-    const onFinishFailed = errorInfo => {
-        console.log('Failed:', errorInfo)
-    }
+    const onFinishFailed = () => { }
 
     return (
         <section className='register-form'>

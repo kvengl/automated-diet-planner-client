@@ -18,7 +18,7 @@ export default {
     return api().get('auth/logout', { withCredentials: true })
   },
 
-  updateUser(user, type) {
+  updateUser(user) {
     return api().post(`auth/updateUser/${user._id}`, { user }, { withCredentials: true })
   },
 

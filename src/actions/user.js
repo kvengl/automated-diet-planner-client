@@ -2,16 +2,18 @@ import * as types from '../constants/ActionTypes'
 import UserService from '../api/UserService'
 import history from '../history'
 import * as cookies from '../libs/cookies'
+import { getAge } from '../libs/user'
 import { message } from 'antd'
 
 export function setUser(user) {
   console.log('[USER] объект пользователя установлен')
   history.push(window.URL_PREFIX)
   const role = user.auth.role
-
+  const age = getAge(user.auth.birthday)
   return {
     type: types.USER_LOGIN,
     role,
+    age,
     user
   }
 }

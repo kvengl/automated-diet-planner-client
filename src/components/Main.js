@@ -1,12 +1,12 @@
 import React from 'react'
-import './Main.css'
-import { InfoCircleOutlined } from '@ant-design/icons';
+import './css/Main.css'
+import { InfoCircleOutlined } from '@ant-design/icons'
 import Anthropometry from './Anthropometry'
+import Recommendations from './Recommendations'
 import { Collapse } from 'antd'
 const { Panel } = Collapse
 
-
-function Main({ user, updateUser }) {
+function Main({ user, nutrient_norms, updateUser }) {
     const isNewUser = user.data.anthropometry === null || user.data.diet_settings === null ? true : false
     return (
         <React.Fragment>
@@ -27,9 +27,8 @@ function Main({ user, updateUser }) {
                         </Panel>
                     </Collapse>
                 </div>
-
                 <div className='main__user-recommendations'>
-                    Здесь рекомендации
+                    <Recommendations nutrient_norms={nutrient_norms} user={user} />
                 </div>
             </div>
         </React.Fragment>

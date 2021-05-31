@@ -1,2 +1,4 @@
 export const USER_LOGIN = 'USER_LOGIN'
 export const USER_CLEAR = 'USER_CLEAR'
+
+export const SET_NUTRIENT_NORMS = 'SET_NUTRIENT_NORMS'
