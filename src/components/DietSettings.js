@@ -3,7 +3,7 @@ import ReactHtmlParser from 'react-html-parser'
 import { Form, Button, Select, Slider, message } from 'antd'
 const { Option } = Select
 
-function Anthropometry({ user, updateUser }) {
+function DietSettings({ user, updateUser }) {
     const [height, setHeight] = useState(user.data.anthropometry ? user.data.anthropometry.height :  180)
     const [weight, setWeight] = useState(user.data.anthropometry ? user.data.anthropometry.weight :  80)
     const [neck_girth, setNeck_girth] = useState(user.data.anthropometry ? user.data.anthropometry.neck_girth : 40)
@@ -25,7 +25,7 @@ function Anthropometry({ user, updateUser }) {
     const markStyle = {
         marginTop: '-34px',
         fontSize: '12px',
-        color: '#454545',
+        color: 'black',
         fontWeight: 'bold'
     }
 
@@ -227,4 +227,4 @@ function Anthropometry({ user, updateUser }) {
     )
 }
 
-export default Anthropometry
+export default DietSettings

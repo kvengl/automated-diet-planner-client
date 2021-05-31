@@ -5,8 +5,11 @@
 .Home-component {
     width: 100%;
     height: 100vh;
-    padding: 12px;
     overflow-y: auto;
+}
+
+.Home-component > div {
+    padding: 12px;
 }
 
 .Home-logo {
@@ -15,4 +18,17 @@
     right: 0;
     padding: 16px;
     zoom: 0.5;
+}
+
+footer {
+    height: 100px;
+    width: 100%;
+}
+
+.footer__sources {
+    margin-top: 8px;
+    width: 100%;
+    height: 300px;
+    background-color: #19a5b8;
+    opacity: 1;
 }

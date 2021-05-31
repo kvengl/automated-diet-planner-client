@@ -49,7 +49,7 @@ function Home({ user, clearStore }) {
                     Сгенерировать меню
           </Menu.Item>
                 <Menu.Item key="report" icon={<MailOutlined />}>
-                    Обратная связь
+                {(user.role === 'admin' || user.role === 'moderator') ? 'Обращения' : 'Обратная связь' }
             </Menu.Item>
                 <Menu.Item key="tutorial" icon={<InfoCircleOutlined />}>
                     Руководство пользователя
@@ -58,10 +58,12 @@ function Home({ user, clearStore }) {
                     Выйти
           </Menu.Item>
             </Menu>
-            <section className='Home-component'>
-                {selectedMenuKey === 'main' && <MainContainer />}
-                {selectedMenuKey === 'account' && <UserProfileContainer />}
-            </section>
+                <section className='Home-component'>
+                    {selectedMenuKey === 'main' && <MainContainer />}
+                    {selectedMenuKey === 'account' && <UserProfileContainer />}
+                </section>
+                
+                
         </div>
     )
 }

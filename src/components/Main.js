@@ -2,6 +2,7 @@ import React from 'react'
 import './css/Main.css'
 import { InfoCircleOutlined } from '@ant-design/icons'
 import Anthropometry from './Anthropometry'
+import DietSettings from './DietSettings'
 import Recommendations from './Recommendations'
 import { Collapse } from 'antd'
 const { Panel } = Collapse
@@ -26,6 +27,20 @@ function Main({ user, nutrient_norms, updateUser }) {
                             <Anthropometry user={user} updateUser={updateUser} />
                         </Panel>
                     </Collapse>
+                    <Collapse style={{marginTop: '8px'}} defaultActiveKey={['0']}>
+                        <Panel header="Настройка диеты" key="1">
+                            <DietSettings user={user} updateUser={updateUser} />
+                        </Panel>
+                    </Collapse>
+
+                    <div className='main__sources'>
+                        <p>Источники информации для базы данных <strong>Diet Planner:</strong></p>
+                        <div style={{display: 'flex'}}>
+                            <a target='_blank' href='https://fitaudit.ru/'><div className='main__sources-fit-audit' /></a>
+                            <a target='_blank' href='https://tvoirecepty.ru/'><img alt="лого сайта fit-audit" className='main__sources-tvoirecepty' src='images/tvoirecepty.png' /></a>
+                        </div>
+                        
+                    </div>
                 </div>
                 <div className='main__user-recommendations'>
                     <Recommendations nutrient_norms={nutrient_norms} user={user} />
