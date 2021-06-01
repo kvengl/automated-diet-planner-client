@@ -28,8 +28,6 @@ export function getProductCategories() {
   }
 }
 
-
-
 export function setNormNutrients(items) {
   console.log("[DICTIONARY] [success] Нормы нутриентов получены")
   return {

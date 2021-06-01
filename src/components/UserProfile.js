@@ -16,7 +16,7 @@ function UserProfile({ user, updateUser }) {
             else throw new Error('Никнейм должен содержать от 3 до 16 символов')
         }).then(() => {
             if ((!password && !password_confirm) || password === password_confirm) return true
-            else throw new Error("Пароли не совпадают")
+            else throw new Error('Пароли не совпадают')
         }).then(() => {
             if ((!password && !password_confirm) || password.length >= 6) return true
             else throw new Error('Пароль должен содержать минимум 6 символов')
@@ -90,7 +90,7 @@ function UserProfile({ user, updateUser }) {
                             },
                         ]}
                     >
-                        <DatePicker locale={locale} format="MM.YYYY" className='profile-form__input' placeholder='' picker='month' />
+                        <DatePicker locale={locale} format='MM.YYYY' className='profile-form__input' placeholder='' picker='month' />
                     </Form.Item>
 
                     <Form.Item

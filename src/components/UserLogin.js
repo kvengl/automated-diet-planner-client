@@ -22,7 +22,7 @@ function UserLogin({ userLogin }) {
             </div>
             <div className='login-form__content'>
                 <Form
-                    layout="vertical"
+                    layout='vertical'
                     name='basic'
                     initialValues={{
                         remember: true,
@@ -31,7 +31,7 @@ function UserLogin({ userLogin }) {
                     onFinishFailed={onFinishFailed}
                 >
                     <Form.Item
-                        className="login-form__input"
+                        className='login-form__input'
                         label='Логин'
                         name='username'
                         rules={[
@@ -45,7 +45,7 @@ function UserLogin({ userLogin }) {
                     </Form.Item>
 
                     <Form.Item
-                        className="login-form__input"
+                        className='login-form__input'
                         label='Пароль'
                         name='password'
                         rules={[
@@ -57,7 +57,7 @@ function UserLogin({ userLogin }) {
                     >
                         <Input.Password />
                     </Form.Item>
-                    <div className="login-form__btns">
+                    <div className='login-form__btns'>
                         <Button type='primary' htmlType='submit'>
                             Войти
                         </Button>

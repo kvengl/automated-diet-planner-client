@@ -90,7 +90,7 @@ function UserRegister({ createUser }) {
                             },
                         ]}
                     >
-                        <DatePicker locale={locale} format="MM.YYYY" className='register-form__input' placeholder='' picker='month' />
+                        <DatePicker locale={locale} format='MM.YYYY' className='register-form__input' placeholder='' picker='month' />
                     </Form.Item>
 
                     <Form.Item

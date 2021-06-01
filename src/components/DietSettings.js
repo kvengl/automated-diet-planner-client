@@ -65,12 +65,11 @@ function DietSettings({ user, products, product_categories, updateUser }) {
                     name='product_categories_excluded'
                     initialValue={product_categories_excluded}
                 >
-                    <Select mode='multiple' onChange={value => { 
+                    <Select allowClear mode='multiple' onChange={value => { 
                         set_product_categories_excluded(value)
                         const copy_food_excluded = food_excluded.slice()
                         food_excluded.forEach((val, i) => {
                             const index = products.findIndex(el => val === el.name)
-                            console.log(index)
                             if (index !== -1 && value.includes(products[index].category)) {
                                 copy_food_excluded.splice(i, 1)
                             }
@@ -81,7 +80,7 @@ function DietSettings({ user, products, product_categories, updateUser }) {
                     </Select>
                 </Form.Item>
                 Исключить конкретные продукты
-                <Select style={{width: '100%'}} mode='multiple' onChange={value => set_food_excluded(value)} value={food_excluded}>
+                <Select allowClear style={{width: '100%'}} mode='multiple' onChange={value => set_food_excluded(value)} value={food_excluded}>
                     {products.filter(val => !product_categories_excluded.includes(val.category)).map(val => <Option key={val._id} value={val.name}>{val.name}</Option>)}
                 </Select>
 

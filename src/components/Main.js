@@ -22,12 +22,12 @@ function Main({ user, nutrient_norms, products, product_categories, updateUser }
             <div className='main__forms'>
                 <div className='main__setting-forms'>
                     <Collapse defaultActiveKey={['0']}>
-                        <Panel header="Антропометрия" key="1">
+                        <Panel header='Антропометрия' key='1'>
                             <Anthropometry user={user} updateUser={updateUser} />
                         </Panel>
                     </Collapse>
                     <Collapse style={{ marginTop: '8px' }} defaultActiveKey={['0']}>
-                        <Panel header="Настройка диеты" key="1">
+                        <Panel header='Настройка диеты' key='1'>
                             <DietSettings products={products} product_categories={product_categories} user={user} updateUser={updateUser} />
                         </Panel>
                     </Collapse>
@@ -35,8 +35,8 @@ function Main({ user, nutrient_norms, products, product_categories, updateUser }
                     <div className='main__sources'>
                         <p>Источники информации для базы данных <strong>Diet Planner:</strong></p>
                         <div style={{ display: 'flex' }}>
-                            <a rel="noreferrer" target='_blank' href='https://fitaudit.ru/'><div className='main__sources-fit-audit' /></a>
-                            <a rel="noreferrer" target='_blank' href='https://tvoirecepty.ru/'><img alt="лого сайта fit-audit" className='main__sources-tvoirecepty' src='images/tvoirecepty.png' /></a>
+                            <a rel='noreferrer' target='_blank' href='https://fitaudit.ru/'><div className='main__sources-fit-audit' /></a>
+                            <a rel='noreferrer' target='_blank' href='https://tvoirecepty.ru/'><img alt='лого сайта fit-audit' className='main__sources-tvoirecepty' src='images/tvoirecepty.png' /></a>
                         </div>
 
                     </div>

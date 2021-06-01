@@ -8,7 +8,7 @@ import { message } from 'antd'
 export function setUser(user) {
   console.log('[USER] объект пользователя установлен')
   history.push(window.URL_PREFIX)
-  const role = user.auth.role
+  const role = user.auth.role.value
   const age = getAge(user.auth.birthday)
   return {
     type: types.USER_LOGIN,
@@ -70,10 +70,8 @@ export function getCurrentUserData(uid) {
   return (dispatch) => {
     UserService.getCurrentUserData(uid).then(response => {
       console.log('[USER] Данные пользователя получены: ')
-
       cookies.setCookie('uid', uid)
       console.log('[USER] UID установлен в cookies')
-
       dispatch(setUser(response.data.object))
     }).catch(err => {
       console.log('[USER] Ошибка при получении данных пользователя: ', err)
@@ -85,7 +83,6 @@ export function getCurrentUserData(uid) {
 export function userRefresh() {
   return (dispatch) => {
     let uid = cookies.getCookie('uid')
-
     if (uid) {
       console.log('[USER] Запись о пользователе существует. Обновить данные')
       dispatch(checkSession(uid))
