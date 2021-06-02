@@ -8,7 +8,7 @@ const { Option } = Select
 function FoodPlan({ user, true_products, products, updateUser }) {
     const [loadStatus, setLoadStatus] = useState(false)
     const [cards, setCards] = useState(user.data.food_plan ? user.data.food_plan : [])
-    const [edited_card, set_edited_card] = useState(user.data.food_plan.find(val => val.isEdit === true) || null)
+    const [edited_card, set_edited_card] = useState(user.data.food_plan ? (user.data.food_plan.find(val => val.isEdit === true) || null) : null)
     const [calories, set_calories] = useState(user.data.anthropometry.calories)
 
     document.title = 'Подбор оптимального содержания продуктов | Diet Planner'
@@ -134,7 +134,7 @@ function FoodPlan({ user, true_products, products, updateUser }) {
                         <a href={val.product_src} target='_blank' rel='noreferrer'><img src={val.product_image} alt={val.product_name}></img></a>
                         <div style={{marginLeft: '24px'}}>
                             <strong>Минимальное:</strong> {val.min_value} г<br/>
-                            <strong style={{color: 'orange'}}>Оптимальное:</strong> null<br/>
+                            <strong style={{color: 'orange'}}>Оптимальное:</strong> ?<br/>
                             <strong style={{color: 'red'}}>Максимальное:</strong> {val.max_value} г
                            
                         </div>

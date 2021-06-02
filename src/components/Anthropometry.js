@@ -16,30 +16,31 @@ function Anthropometry({ user, updateUser }) {
         let { sex, activity } = values
         const new_user = Object.assign({}, user.data)
         const age = user.age
+        let coeff;
         switch (activity) {
             case 'min':
-                activity = 1.2
+                coeff = 1.2
                 break
             case 'weak':
-                activity = 1.375
+                coeff = 1.375
                 break
             case 'moderate':
-                activity = 1.55
+                coeff = 1.55
                 break
             case 'heavy':
-                activity = 1.7
+                coeff = 1.7
                 break
             case 'hard':
-                activity = 1.9
+                coeff = 1.9
                 break
             default:
                 break
         }
         let calories
         if (sex === 'male') {
-            calories = parseInt((10 * weight + 6.25 * height - 5 * age + 5) * activity)
+            calories = parseInt((10 * weight + 6.25 * height - 5 * age + 5) * coeff)
         } else {
-            calories = parseInt((10 * weight + 6.25 * height - 5 * age - 161) * activity)
+            calories = parseInt((10 * weight + 6.25 * height - 5 * age - 161) * coeff)
         }
         new_user.anthropometry = { sex, height, weight, neck_girth, waist_girth, forearm_girth, wrist_girth, hip_girth, activity, calories }
         updateUser(new_user)

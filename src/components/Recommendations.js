@@ -1,7 +1,7 @@
 import { Table } from 'antd'
 
 function Recommendations({ user, nutrient_norms }) {
-
+    const calories =  user.data.anthropometry ? user.data.anthropometry.calories : null
     const columns = [
         {
             title: 'Компонент',
@@ -20,7 +20,7 @@ function Recommendations({ user, nutrient_norms }) {
         return {
             key: i,
             name: val.russian_name,
-            count: i === 0 ? user.data.anthropometry.calories + ' ккал' : `${val.data.value} ${val.data.metric}`
+            count: i === 0 ? calories + ' ккал' : `${val.data.value} ${val.data.metric}`
         }
     })
 
