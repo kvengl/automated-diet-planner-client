@@ -9,12 +9,15 @@ function DietSettings({ user, products, product_categories, updateUser }) {
     const [food_excluded, set_food_excluded] = useState(user.data.diet_settings ? user.data.diet_settings.food_excluded : [])
 
     const onFinish = values => {
-        const new_user = JSON.parse(JSON.stringify(user.data))
-        new_user.diet_settings = { financial_opportunities: values.financial_opportunities, number_meals: values.number_meals, food_excluded, product_categories_excluded: values.product_categories_excluded }
+        const new_user = Object.assign({}, user.data)
+        new_user.diet_settings = {
+            financial_opportunities: values.financial_opportunities,
+            number_meals: values.number_meals,
+            food_excluded,
+            product_categories_excluded: values.product_categories_excluded,
+            true_products: products.filter(val => !product_categories_excluded.includes(val.category)).map(val => val.name).filter(val => !food_excluded.includes(val))
+        }
         updateUser(new_user)
-    }
-    const onFinishFailed = () => {
-        message.error('Выберите пол', 3)
     }
 
     return (
@@ -26,9 +29,8 @@ function DietSettings({ user, products, product_categories, updateUser }) {
                     remember: true,
                 }}
                 onFinish={onFinish}
-                onFinishFailed={onFinishFailed}
+                onFinishFailed={() => message.error('Выберите пол', 3)}
             >
-
                 <Form.Item
                     className='main__diet-settings-input'
                     label='Количество приёмов пищи'
@@ -43,7 +45,6 @@ function DietSettings({ user, products, product_categories, updateUser }) {
                 >
                     <InputNumber min={1} max={7} />
                 </Form.Item>
-
                 <Form.Item
                     className='main__diet-settings-input'
                     label='Финансовые возможности (₽)'
@@ -58,7 +59,6 @@ function DietSettings({ user, products, product_categories, updateUser }) {
                 >
                     <InputNumber min={100} max={5000} />
                 </Form.Item>
-
                 <Form.Item
                     className='main__diet-settings-input'
                     label='Исключить следующие категории продуктов'
@@ -83,7 +83,6 @@ function DietSettings({ user, products, product_categories, updateUser }) {
                 <Select allowClear style={{width: '100%'}} mode='multiple' onChange={value => set_food_excluded(value)} value={food_excluded}>
                     {products.filter(val => !product_categories_excluded.includes(val.category)).map(val => <Option key={val._id} value={val.name}>{val.name}</Option>)}
                 </Select>
-
                 <div className='main__diet-settings-btn'>
                     <Button type='primary' htmlType='submit'>
                         Сохранить

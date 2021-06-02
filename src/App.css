@@ -14,3 +14,8 @@
     font-family: Arial;
     color: #000;
 }
+
+.ant-card-head-title {
+    font-weight: bold;
+    font-family: Open Sans;
+}

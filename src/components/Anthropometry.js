@@ -13,13 +13,36 @@ function Anthropometry({ user, updateUser }) {
     const [hip_girth, setHip_girth] = useState(user.data.anthropometry ? user.data.anthropometry.hip_girth : 90)
 
     const onFinish = values => {
-        const { sex, activity } = values
-        const new_user = JSON.parse(JSON.stringify(user.data))
-        new_user.anthropometry = { sex, height, weight, neck_girth, waist_girth, forearm_girth, wrist_girth, hip_girth, activity }
+        let { sex, activity } = values
+        const new_user = Object.assign({}, user.data)
+        const age = user.age
+        switch (activity) {
+            case 'min':
+                activity = 1.2
+                break
+            case 'weak':
+                activity = 1.375
+                break
+            case 'moderate':
+                activity = 1.55
+                break
+            case 'heavy':
+                activity = 1.7
+                break
+            case 'hard':
+                activity = 1.9
+                break
+            default:
+                break
+        }
+        let calories
+        if (sex === 'male') {
+            calories = parseInt((10 * weight + 6.25 * height - 5 * age + 5) * activity)
+        } else {
+            calories = parseInt((10 * weight + 6.25 * height - 5 * age - 161) * activity)
+        }
+        new_user.anthropometry = { sex, height, weight, neck_girth, waist_girth, forearm_girth, wrist_girth, hip_girth, activity, calories }
         updateUser(new_user)
-    }
-    const onFinishFailed = () => {
-        message.error('Выберите пол', 3)
     }
 
     const markStyle = {
@@ -38,7 +61,7 @@ function Anthropometry({ user, updateUser }) {
                     remember: true,
                 }}
                 onFinish={onFinish}
-                onFinishFailed={onFinishFailed}
+                onFinishFailed={() => message.error('Выберите пол', 3)}
             >
                 <Form.Item
                     className='main__anthropometry-input'

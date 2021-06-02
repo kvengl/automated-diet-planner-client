@@ -1,36 +1,6 @@
 import { Table } from 'antd'
 
 function Recommendations({ user, nutrient_norms }) {
-    const sex = user.data.anthropometry ? user.data.anthropometry.sex : 'male'
-    const height = user.data.anthropometry ? user.data.anthropometry.height : 180
-    const weight = user.data.anthropometry ? user.data.anthropometry.weight : 80
-    let activity = user.data.anthropometry ? user.data.anthropometry.activity : 'min'
-    const age = user.age
-    switch (activity) {
-        case 'min':
-            activity = 1.2
-            break
-        case 'weak':
-            activity = 1.375
-            break
-        case 'moderate':
-            activity = 1.55
-            break
-        case 'heavy':
-            activity = 1.7
-            break
-        case 'hard':
-            activity = 1.9
-            break
-        default:
-            break
-    }
-    let calories
-    if (sex === 'male') {
-        calories = (10 * weight + 6.25 * height - 5 * age + 5) * activity
-    } else {
-        calories = (10 * weight + 6.25 * height - 5 * age - 161) * activity
-    }
 
     const columns = [
         {
@@ -50,7 +20,7 @@ function Recommendations({ user, nutrient_norms }) {
         return {
             key: i,
             name: val.russian_name,
-            count: i === 0 ? calories + ' ккал' : `${val.data.value} ${val.data.metric}`
+            count: i === 0 ? user.data.anthropometry.calories + ' ккал' : `${val.data.value} ${val.data.metric}`
         }
     })
 

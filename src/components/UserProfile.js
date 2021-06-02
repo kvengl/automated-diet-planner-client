@@ -21,7 +21,7 @@ function UserProfile({ user, updateUser }) {
             if ((!password && !password_confirm) || password.length >= 6) return true
             else throw new Error('Пароль должен содержать минимум 6 символов')
         }).then(() => {
-            const new_user = JSON.parse(JSON.stringify(user.data))
+            const new_user = Object.assign({}, user.data)
             if (password) {
                 new_user.auth.password = password
             }
@@ -30,10 +30,6 @@ function UserProfile({ user, updateUser }) {
             new_user.birthday = birthday
             updateUser(new_user)
         }).catch(error => message.error(error.message, 3))
-    }
-
-    const onFinishFailed = errorInfo => {
-        console.log('Failed:', errorInfo)
     }
 
     return (
@@ -47,7 +43,7 @@ function UserProfile({ user, updateUser }) {
                         remember: true,
                     }}
                     onFinish={onFinish}
-                    onFinishFailed={onFinishFailed}
+                    onFinishFailed={() => {}}
                 >
                     <Form.Item
                         className='profile-form__input'
