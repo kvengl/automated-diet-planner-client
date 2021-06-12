@@ -35,8 +35,6 @@ function UserRegister({ createUser }) {
         }).catch(error => message.error(error.message, 3))
     }
 
-    const onFinishFailed = () => { }
-
     return (
         <section className='register-form'>
             <div className='register-form__logo'>
@@ -50,7 +48,7 @@ function UserRegister({ createUser }) {
                         remember: true,
                     }}
                     onFinish={onFinish}
-                    onFinishFailed={onFinishFailed}
+                    onFinishFailed={() => {}}
                 >
                     <Form.Item
                         className='register-form__input'

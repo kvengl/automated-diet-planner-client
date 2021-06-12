@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { Skeleton } from 'antd'
 import Home from '../containers/Home'
 
-function LoadDataFromDBGate({ user, nutrient_norms, products, product_categories, getNutrientNorms, getProducts, getProductCategories }) {
+function LoadDataFromDB({ user, nutrient_norms, products, product_categories, getNutrientNorms, getProducts, getProductCategories }) {
     const [loaded, setLoaded] = useState(false)
     const [loadStatus, setLoadStatus] = useState('Загрузка...')
     useEffect(() => {
@@ -40,4 +40,4 @@ function LoadDataFromDBGate({ user, nutrient_norms, products, product_categories
     }
 }
 
-export default LoadDataFromDBGate
+export default LoadDataFromDB

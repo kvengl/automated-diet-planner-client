@@ -31,14 +31,12 @@ function Main({ user, nutrient_norms, products, product_categories, updateUser }
                             <DietSettings products={products} product_categories={product_categories} user={user} updateUser={updateUser} />
                         </Panel>
                     </Collapse>
-
                     <div className='main__sources'>
                         <p>Источники информации для базы данных <strong>Diet Planner:</strong></p>
                         <div style={{ display: 'flex' }}>
                             <a rel='noreferrer' target='_blank' href='https://fitaudit.ru/'><div className='main__sources-fit-audit' /></a>
                             <a rel='noreferrer' target='_blank' href='https://tvoirecepty.ru/'><img alt='лого сайта fit-audit' className='main__sources-tvoirecepty' src='images/tvoirecepty.png' /></a>
                         </div>
-
                     </div>
                 </div>
                 <div className='main__user-recommendations'>

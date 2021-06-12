@@ -6,15 +6,6 @@ import { Link } from 'react-router-dom'
 
 function UserLogin({ userLogin }) {
     document.title = 'Авторизация | Diet planner'
-
-    const onFinish = values => {
-        userLogin(values.username, values.password)
-    }
-
-    const onFinishFailed = errorInfo => {
-        console.log('Failed:', errorInfo)
-    }
-
     return (
         <section className='login-form'>
             <div className='login-form__logo'>
@@ -27,8 +18,8 @@ function UserLogin({ userLogin }) {
                     initialValues={{
                         remember: true,
                     }}
-                    onFinish={onFinish}
-                    onFinishFailed={onFinishFailed}
+                    onFinish={values => userLogin(values.username, values.password)}
+                    onFinishFailed={() => {}}
                 >
                     <Form.Item
                         className='login-form__input'
